@@ -31,7 +31,7 @@ func cutsetFunc(r rune) bool {
 	return r == '\r' || r == '\n'
 }
 
-// Objects implementing the Sender interface are able to send messages to an IRC server.
+// Sender represents objects that are able to send messages to an IRC server.
 //
 // As there might be a message queue, it is possible that Send returns a nil
 // error, but the message is not sent (yet). The error value is only used when
@@ -299,7 +299,7 @@ func ParseMessage(raw string) (m *Message) {
 	// Find prefix for trailer
 	i = indexByte(raw[j:], prefix)
 
-	if i < 0 {
+	if i < 0 || raw[j+i-1] != space {
 
 		// There is no trailing argument!
 		m.Params = strings.Split(raw[j:], string(space))
